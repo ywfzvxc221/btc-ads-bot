@@ -1,7 +1,10 @@
-TOKEN = "ضع_توكن_البوت_هنا"
-ADMIN_ID = 123456789  # معرف الأدمن (يمكن تعديله لاحقًا)
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
+TOKEN = os.getenv("BOT_TOKEN")
+ADMIN_ID = os.getenv("ADMIN_ID")
 PAYMENT_INFO = {
-    "faucetpay": "qqw112277331@gmail.com",
-    "binance": "TAwLiJmH7RBYf61MKXxSHZ9K81ysr1ZFkW"
+    "faucetpay": os.getenv("FAUCET_PAY"),
+    "binance": os.getenv("BINANCE_ADDRESS")
 }
