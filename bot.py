@@ -2,11 +2,18 @@ import telebot
 import json
 import os
 import random
-from config import TOKEN, ADMIN_ID, PAYMENT_INFO
+
+# قراءة البيانات الحساسة من متغيرات البيئة
+TOKEN = os.getenv("BOT_TOKEN")
+ADMIN_ID = int(os.getenv("ADMIN_ID"))
+PAYMENT_INFO = {
+    "faucetpay": os.getenv("FAUCETPAY_ADDRESS"),
+    "binance": os.getenv("BINANCE_ADDRESS")
+}
 
 bot = telebot.TeleBot(TOKEN)
 
-# Load or create users data
+# إنشاء ملف المستخدمين إذا لم يكن موجود
 if not os.path.exists("users.json"):
     with open("users.json", "w") as f:
         json.dump({}, f)
@@ -18,7 +25,7 @@ def save_users():
     with open("users.json", "w") as f:
         json.dump(users, f, indent=4)
 
-# Subscription plans
+# خطط الاشتراك
 subscriptions = {
     10: {"daily": 15, "price": 0.2},
     20: {"daily": 25, "price": 0.5},
@@ -27,7 +34,7 @@ subscriptions = {
     100: {"daily": 9999, "price": 1.5}
 }
 
-# Example replies
+# ردود مثال
 female_replies = [
     "هلا فيك، كيف يومك؟", "وش تحب تسوي بوقت فراغك؟", "أنا مهتمة أتعرف عليك أكثر.",
     "وش أكثر شي يفرحك؟", "هل تحب السفر؟", "تحب تسمع موسيقى؟"
